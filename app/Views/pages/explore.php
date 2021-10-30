@@ -5,8 +5,7 @@
     $sortby = $request["sortby"]??"default";
     $order = $request["order"]??"asc";
 
-
-
+    
 
 
 ?>
@@ -20,6 +19,7 @@
 </div>
     <section>
         <div class="container my-5">
+            <?php //echo"<pre>"; var_dump($_GET);  echo"</pre>";?>
             <div class="row">
                 <div class="col-md-3">
                     <div class="card border-0 shadow">
@@ -60,7 +60,7 @@
                                             <option <?=$order == "asc" ? "selected" : ""?> value="asc">Ascending</option>
                                             <option <?=$order == "desc" ? "selected" : ""?> value="desc">Descending</option>
                                         </select>
-                                    </div>
+                                    </div>  
                                 </div>
                             </div>
                             <div class="form-group d-flex justify-content-end">
@@ -86,14 +86,14 @@
                                     <div class="distance"><i class="fa fa-pin"></i><?=$product->category_title?></div>
                                     <div class="d-flex justify-content-between align-items-center"  >
                                         <div class="rating" style="background-color:rgba(0,0,0,0.3)">
-                                            <?php for ($i=0; $i < 5; $i++):?>
+                                            <?php for ($i=0; $i < 5; $i++):?>   
                                                 <i class="fa fa-star"></i>
                                             <?php endfor?>
                                         </div>
                                         <div class="review" style="background-color:rgba(0,0,0,0.3)"><a href="#"><?=($product->fake_order) ? mt_rand(env("app.fake_order_min"),env("app.fake_order_max")):""?> orders</a> </div>
-                                    </div>
-                                </div>
-                                <div class="content">
+                                    </div>      
+                                </div>         
+                                <div class="content">       
                                     <h5><a href="<?=base_url("uploads/{$product->image}")?>" class="pop-up"><?=$product->title?></a></h5>
                                     <div class="product-name"><?=$product->description?></div>
                                     <div class="d-flex justify-content-between align-items-center">

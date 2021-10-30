@@ -34,7 +34,7 @@ class Home extends BaseController
             }
             if ($request["sortby"] == "default") {
                 $sortby = "id";
-            } else {
+            } else {        
                 $sortby = $request["sortby"];
             }
             $data["products"] = $model->select("products.*,category.title as category_title")->join("category", "products.category = category.id")->like("products.title", $keyword, "BOTH")->where($category)->orderby($sortby, $order)->paginate(9);
@@ -49,12 +49,11 @@ class Home extends BaseController
     public function blog($create = false)
     {   
         if ($create === false) {
-            $model = model("ProductsModel");
-            $data["products"] = $model->getProducts([], "title", "asc", 9);
-    
+            $model = model("BlogModel");
+            $data["blogs"] = $model->getBlogs();
+            $data["latestBlog"] = $model->getLatestBlog();
             $data["title"] = "Blog";
             $data["pager"] = $model->pager;
-            $data["categories"] = model("CategoryModel")->findall();
     
             return view('pages/blog', $data);
         }else {
@@ -63,6 +62,14 @@ class Home extends BaseController
             $data["title"] = "Create Blog";
             return view('pages/create', $data);
         }
+    }
+    public function viewBlog($slug){
+        $model = model("BlogModel");
+        $data = [
+            'blog' => $model->getBlog($slug)->first(),
+            'title' => 'Blog',  
+        ];
+        return view('pages/view', $data);
     }
     public function createBlog(){
         

@@ -36,8 +36,8 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('explore', 'Home::explore');
 $routes->get('blog', 'Home::blog');
-$routes->get('blog/create', 'Home::blog/$1');
-$routes->post('home/createBlog', 'Home::createBlog');
+$routes->get('blog/(:segment)', 'Home::viewBlog/$1');
+$routes->match(['get', 'post'], 'createBlog', 'Home::createBlog');
 $routes->post('handle-login', 'Home::loginAttempt');
 $routes->get('logout', 'Home::logout');
 

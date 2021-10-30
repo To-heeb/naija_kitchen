@@ -20,9 +20,17 @@ class BlogModel extends Model
       $query = $this->asArray()->select("`blog`.`blog_category`, blog_category.*")->join("blog_category", "blog.blog_category = category_id", "right");
       return $query->findAll();
     }
-    public function getBlogs()
+    public function getBlog($slug)
     {
-      $this->get();
+      return $this->select("`blog`.*, blog_category.*")->join("blog_category", "blog.blog_category = category_id")->where(['blog_slug' => $slug]);
+    }
+    public function getBlogs($orderby = "created_at", $order_mode="desc", $limit=9)
+    {
+      return $this->select("`blog`.*, blog_category.*")->join("blog_category", "blog.blog_category = category_id")->orderby($orderby,$order_mode)->paginate($limit);
+    } 
+    public function getLatestBlog($orderby = "created_at", $order_mode="desc", $limit=4)
+    {
+      return $this->select("*")->orderby($orderby,$order_mode)->limit($limit)->findAll();
     }
 
 

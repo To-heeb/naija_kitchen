@@ -9,7 +9,7 @@
         <div class="container my-5">
         <?php //echo"<pre>"; var_dump($category[0]['category_name']); echo"</pre>";?>
         <?=  \Config\Services::validation()->listErrors() ?>
-            <form action="/home/createBlog" method="post">
+            <form method="post">
             <?= csrf_field() ?>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Blog title</label>
